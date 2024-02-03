@@ -268,7 +268,7 @@ const mainPageComponent = () => `<div id="main">
                <td id="userGender"></td>
             </tr>
             <tr>
-               <th>Phone number :</th>
+               <th>Phone :</th>
                <td id="userPhone"></td>
             </tr>
             <tr>
@@ -282,10 +282,10 @@ const mainPageComponent = () => `<div id="main">
 
 <div id="skills" class="section">
    <div class="level">
-        <h3 class="level-title">Apprentice Developper</h3>
+        <h3 class="level-title">Level</h3>
         <hr>
         <div class="level-number">
-            <p>Level</p>
+            <p>Level</p> 
             <p class="level-number-loc">24</p>
         </div>
    </div>
