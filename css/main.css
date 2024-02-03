@@ -168,9 +168,8 @@ h3{
 
 @media only screen and (max-width: 600px) {
     #main {
-        background-color: red;
         flex-direction: column;
-        width: 85vw;
+        width: 86vw;
         left: 0;
         /* overflow-x: hidden; */
     }
