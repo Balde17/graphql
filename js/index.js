@@ -427,10 +427,8 @@ const signIn = async (credentials) => {
         let response = await fetch(logingEndpoint, options);
 
         if (!response.ok) {
-            throw new Error(`Erreur HTTP : ${response.status}`);
-        } else {
-            document.querySelector('#error_msg').innerHTML = "login/password is incorrect";
-            return
+          document.querySelector('#error_msg').innerHTML = "login/password is incorrect";
+          return
         }
                 
     } catch (error) {
