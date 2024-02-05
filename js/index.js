@@ -429,7 +429,9 @@ const signIn = async (credentials) => {
         if (!response.ok) {
           document.querySelector('#error_msg').innerHTML = "login/password is incorrect";
           return
-        }
+      } else {
+          return await response.json();
+      }
                 
     } catch (error) {
         throw new Error("Login request failed.");
