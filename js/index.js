@@ -38,7 +38,6 @@ const logData = async () => {
         logoutBtn.addEventListener("click", logoutHandler);
 
         await logUserInfos(token)
-        await logXp(token)
         await logLevel(token)
         await logAudit(token)
         await logSkills(token)
@@ -51,38 +50,31 @@ const logData = async () => {
 
 // Recuperer et afficher les information generales de l'utilisateur
 const logUserInfos = async (token) =>{
-    if (token){
-        // Récupérer les données de l'utilisateur
-        const { data } = await getData(userQuery, token);
-        const user = data.user[0]
+  if (token){
+      // Récupérer les données de l'utilisateur
+      const { data } = await getData(userQuery, token);
+      const user = data.user[0]
+      // console.log("user", user)
+      const xpAmount = data.xpTotal.aggregate.sum.amount
 
-        // Afficher les données dans les champs spécifiques. 
-        document.querySelector("#userName").textContent = `${user.firstName} ${user.lastName}`
-        document.querySelector("#userEmail").textContent = user.email
-        document.querySelector("#userCampus").textContent = user.campus
-        document.querySelector("#userGender").textContent = user.attrs.gender
-        document.querySelector("#userPhone").textContent = user.attrs.phone
-        document.querySelector("#userAge").textContent = user.attrs.age
-    }
-}
+      // Convertir en mégaoctets si la taille est supérieure à 1024 KB
+      let totalXpAmountMB = xpAmount >= 1000 ? xpAmount / 1000 : xpAmount;
+      totalXpAmountMB = Math.round(totalXpAmountMB)
+      const unit = xpAmount >= 1000 ? 'KB' : 'MB';
+      
+      const element = document.querySelector(".xp-amount")
+      if (element){
+          element.innerHTML = `<p><span>${totalXpAmountMB}</span> ${unit}</p>`
+      }     
 
-// Recuperer et afficher les xp de l'utilisateur
-const logXp = async (token) =>{
-    if (token){
-        // Récupérer les données de l'utilisateur
-        const { data } = await getData(xpQuery, token);
-        const xpAmount = data.xpTotal.aggregate.sum.amount
-
-        // Convertir en mégaoctets si la taille est supérieure à 1024 KB
-        let totalXpAmountMB = xpAmount >= 1000 ? xpAmount / 1000 : xpAmount;
-        totalXpAmountMB = Math.round(totalXpAmountMB)
-        const unit = xpAmount >= 1000 ? 'KB' : 'MB';
-        
-        const element = document.querySelector(".xp-amount")
-        if (element){
-            element.innerHTML = `<p><span>${totalXpAmountMB}</span> ${unit}</p>`
-        }
-    }
+      // Afficher les données dans les champs spécifiques. 
+      document.querySelector("#userName").textContent = `${user.firstName} ${user.lastName}`
+      document.querySelector("#userEmail").textContent = user.email
+      document.querySelector("#userCampus").textContent = user.campus
+      document.querySelector("#userGender").textContent = user.attrs.gender
+      document.querySelector("#userPhone").textContent = user.attrs.phone
+      document.querySelector("#userAge").textContent = user.attrs.age
+  }
 }
 
 // Recuperer et afficher le level de l'utilisateur
@@ -323,11 +315,6 @@ const userQuery = `
         auditRatio
         attrs
     }
-}
-`
-
-const xpQuery = `
-{
     xpTotal: transaction_aggregate(
       where: {
         type: { _eq: "xp" },
@@ -344,7 +331,8 @@ const xpQuery = `
         }
       }
     }
-  }`
+}
+`
 
   const levelQuery = `
   {
