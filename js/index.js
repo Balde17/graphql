@@ -43,7 +43,7 @@ const logData = async () => {
         await logSkills(token)
 
     } catch (error) {
-        console.error("Erreur :", error.message);
+        // console.error("Erreur :", error.message);
         logoutHandler()
     }
 };
@@ -163,10 +163,6 @@ const drawSVG = (Aup, Adown) =>{
         chart.draw(data, options);
       }
 }    
-  
-
-
-
 
 /***********************/
 const drawSkills = (skills) =>{
@@ -433,7 +429,8 @@ const signIn = async (credentials) => {
         if (!response.ok) {
             throw new Error(`Erreur HTTP : ${response.status}`);
         } else {
-            return await response.json();
+            document.querySelector('#error_msg').innerHTML = "login/password is incorrect";
+            return
         }
                 
     } catch (error) {
