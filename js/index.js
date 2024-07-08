@@ -56,11 +56,14 @@ const logUserInfos = async (token) =>{
       const user = data.user[0]
       // console.log("user", user)
       const xpAmount = data.xpTotal.aggregate.sum.amount
+      console.log("xp", xpAmount)
 
       // Convertir en mégaoctets si la taille est supérieure à 1024 KB
       let totalXpAmountMB = xpAmount >= 1000 ? xpAmount / 1000 : xpAmount;
       totalXpAmountMB = Math.round(totalXpAmountMB)
-      const unit = xpAmount >= 1000 ? 'KB' : 'MB';
+
+      const unit = totalXpAmountMB <= 1000 ? 'KB' : 'MB';
+      totalXpAmountMB = totalXpAmountMB >= 1000? totalXpAmountMB/1000 : totalXpAmountMB;
       
       const element = document.querySelector(".xp-amount")
       if (element){
@@ -317,7 +320,8 @@ const userQuery = `
         _and: [
           { path: { _ilike: "/dakar/div-01%" } },
           { path: { _nlike: "%/dakar/div-01/piscine-js/%" } },
-          { path: { _nlike: "%/dakar/div-01/piscine-js-2/%" } }
+          { path: { _nlike: "%/dakar/div-01/piscine-js-2/%" } },
+          { path: { _nlike: "%/dakar/div-01/piscine-rust/%" } }
         ]
       }
     ) {
