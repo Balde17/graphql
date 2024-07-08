@@ -317,7 +317,6 @@ const userQuery = `
         _and: [
           { path: { _ilike: "/dakar/div-01%" } },
           { path: { _nlike: "%/dakar/div-01/piscine-js/%" } },
-          { path: { _nlike: "%/dakar/div-01/piscine-js-2/%" } }
         ]
       }
     ) {
