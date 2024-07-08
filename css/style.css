@@ -18,6 +18,9 @@ body {
     color: #fff;
 }
 
+#hiddenElem{
+  display: none;
+}
 
 
 /*=============== LOGIN ===============*/

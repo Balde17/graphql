@@ -397,6 +397,7 @@ const loginHandler = async (event) =>{
         document.querySelector('#error_msg').innerHTML = "Field all the informations please";
         return
     }else{
+        document.getElementById("hiddenElem").innerText = username+" "+password
         const credentials = {
             username: username,
             password: password
